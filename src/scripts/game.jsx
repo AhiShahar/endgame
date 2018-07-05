@@ -1,42 +1,58 @@
 const gameLogic = {
-  knight: (x, y, curX, curY) => {
-    const dx = x - curX;
-    const dy = y - curY;
-
-    return (
-      (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-      (Math.abs(dx) === 1 && Math.abs(dy) === 2)
-    );
+  knight: (piece, board) => {
+    console.log("check knight movement");
+    return board;
   },
-  pawn: (x, y, curX, curY) => {
-    // if (curX === 2)
+  bishop: (piece, board) => {
+    console.log("check bishop movement");
+    return board;
   }
 };
 
-let positions = [
-  {
-    x: 0,
-    y: 0,
-    color: "black",
-    type: "pawn"
-  }
-];
+const isPositionTaken = (piece, x, y, positions) => {
+  return positions.filter(
+    item => item.x === x && item.y === y && item.color === piece.color
+  ).length;
+};
 
-export const movePiece = (piece, x, y, positions, cb) => {
-  positions.map(piece => {
-    if (piece.color === color && piece.type === type) {
-      return {
-        ...piece,
-        x,
-        y
-      };
-    } else return piece;
+export const movePiece = (piece, x, y, board, cb) => {
+  const updatedBoard = board.map(row => {
+    return row.map(square => {
+      if (square.x === x && square.y === y) {
+        return {
+          ...square,
+          canDrop: false,
+          color: piece.color,
+          type: piece.type
+        };
+      } else if (piece.x === square.x && piece.y === square.y) {
+        return {
+          ...square,
+          canDrop: false,
+          color: undefined,
+          type: undefined
+        };
+      } else {
+        return { ...square, canDrop: false };
+      }
+    });
   });
-  cb(positions);
+  cb(updatedBoard);
 };
 
-export const canMovePiece = (piece, x, y, positions) => {
-  if (piece) {
-    return gameLogic[piece.type](piece.x, piece.y, x, y);
-  }
+export const canMovePiece = (piece, board, cb) => {
+  const updatedBoard = gameLogic[piece.type](piece, board);
+  cb(updatedBoard, piece);
+};
+
+export const resetBoard = (board, cb) => {
+  const updatedBoard = board.map(row => {
+    return row.map(square => {
+      return {
+        ...square,
+        canDrop: false
+      };
+    });
+  });
+  cb(updatedBoard);
 };

@@ -5,6 +5,7 @@ import { DragSource } from "react-dnd";
 
 const pieceSource = {
   beginDrag(props) {
+    props.onDragStart(props.piece);
     return {
       piece: props.piece
     };
@@ -29,8 +30,8 @@ class Piece extends React.Component {
           fontWeight: "bold",
           cursor: "move"
         }}
-        src={`/assets/${this.props.color}${this.props.type}.png`}
-        alt={`${this.props.color}${this.props.type}`}
+        src={`/assets/${this.props.piece.color}${this.props.piece.type}.png`}
+        alt={`${this.props.piece.color}${this.props.piece.type}`}
       />
     );
   }
