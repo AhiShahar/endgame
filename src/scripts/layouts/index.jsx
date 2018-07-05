@@ -15,8 +15,8 @@ class Game extends React.Component {
         {
           x: 0,
           y: 0,
-          color: "black",
-          type: "pawn"
+          color: "white",
+          type: "knight"
         }
       ]
     };

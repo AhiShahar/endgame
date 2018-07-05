@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Square from "./square";
-import Troop from "./troop";
-import { moveTroop, canMoveTroop } from "../game";
+import BoardSquare from "./boardsquare";
+import Piece from "./piece";
+import { movePiece, canMovePiece } from "../game";
 
 class Board extends React.Component {
   static propTypes = {
@@ -12,32 +12,36 @@ class Board extends React.Component {
   renderSquare(i) {
     const x = i % 8;
     const y = Math.floor(i / 8);
-    const black = (x + y) % 2 === 1;
-
-    const troops = this.props.positions.filter(
-      troop => troop.x === x && troop.y === y
-    );
-
-    const piece = troops.length ? (
-      <Troop color={troops[0].color} type={troops[0].type} />
-    ) : null;
-
     return (
-      <div
-        key={i}
-        style={{ width: "12.5%", height: "12.5%" }}
-        onClick={() =>
-          this.handleSquareClick(troops[0].color, troops[0].type, x, y)
-        }
-      >
-        <Square black={black}>{piece}</Square>
+      <div key={i} style={{ width: "12.5%", height: "12.5%" }}>
+        <BoardSquare x={x} y={y}>
+          {this.renderPiece(x, y)}
+        </BoardSquare>
       </div>
     );
   }
 
-  handleSquareClick(color, type, x, y) {
-    if (canMoveKnight(color, type, x, y)) {
-      moveKnight(color, type, x, y);
+  renderPiece(x, y) {
+    const pieces = this.props.positions.filter(
+      piece => piece.x === x && piece.y === y
+    );
+    const piece = pieces.length ? (
+      <Piece color={pieces[0].color} type={pieces[0].type} />
+    ) : null;
+    return piece;
+  }
+
+  handleSquareClick(piece, x, y) {
+    if (
+      canMovePiece(
+        piece,
+        x,
+        y,
+        this.props.positions,
+        this.props.updatePositions
+      )
+    ) {
+      movePiece(piece, x, y, this.props.positions);
     }
   }
   render() {
