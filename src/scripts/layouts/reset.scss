@@ -1,0 +1,54 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Lato", "open-sans";
+  color: #333;
+}
+
+html {
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cacaca;
+    background-clip: padding-box;
+    -webkit-border-radius: 7px;
+    border: 1px solid rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fafafa;
+  }
+
+  scrollbar-face-color: #cacaca;
+  scrollbar-track-color: #fafafa;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #333;
+  margin: 0;
+}
