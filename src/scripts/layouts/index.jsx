@@ -84,6 +84,8 @@ class Game extends React.Component {
         style={{
           width: "100%",
           height: "100%",
+          maxWidth: "100vh",
+          margin: "0 auto",
           display: "flex",
           flexWrap: "wrap"
         }}
