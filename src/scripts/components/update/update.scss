@@ -1,0 +1,33 @@
+.update {
+  background-color: #444;
+  opacity: 0.8;
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  display: inline-block;
+  position: fixed;
+  left: 40vw;
+  left: -webkit-calc(50vw - 150px);
+  left: -moz-calc(50vw - 150px);
+  left: -o-calc(50vw - 150px);
+  top: 45vh;
+  top: -webkit-calc(50vh - 25px);
+  top: -moz-calc(50vh - 25px);
+  top: -o-calc(50vh - 25px);
+  .update-context {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 40px;
+    font-family: lato, sans-serif;
+    color: ghostwhite;
+  }
+  .display-game {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+  }
+}

@@ -7,43 +7,33 @@ import BoardSquare from "../components/boardsquare";
 import Piece from "../components/piece";
 import { Board } from "../constants";
 import { canMovePiece, resetBoard } from "../game";
-const positions = [
-  {
-    x: 0,
-    y: 0,
-    color: "black",
-    type: "knight"
-  },
-  {
-    x: 1,
-    y: 2,
-    color: "white",
-    type: "bishop"
-  }
-];
-
+import Update from "../components/update/update";
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this._updateBoard = this.updateBoard.bind(this);
     this._onDragStart = this.onDragStart.bind(this);
     this._resetDrop = this.resetDrop.bind(this);
-    this.init = positions => {
-      for (let piece of positions) {
-        console.log(piece);
+    this.init = startingPositions => {
+      for (let piece of startingPositions) {
         Board[piece.x][piece.y] = {
-          x: piece.x,
-          y: piece.y,
-          color: piece.color,
-          type: piece.type,
-          canDrop: false
+          ...piece
         };
       }
       return Board;
     };
     this.state = {
-      board: this.init(positions),
-      dragging: {}
+      winner: "",
+      board: this.init(this.props.startingPositions),
+      dragging: {},
+      castling: {
+        whiteRookRight: true,
+        blackRookRight: true,
+        whiteRookLeft: true,
+        blackRookLeft: true,
+        blackKing: true,
+        whiteKing: true
+      }
     };
   }
   resetDrop() {
@@ -52,8 +42,8 @@ class Game extends React.Component {
   onDragStart(dragging) {
     canMovePiece(dragging, this.state.board, this._updateBoard);
   }
-  updateBoard(board, dragging = {}) {
-    this.setState({ board, dragging });
+  updateBoard(board, dragging = {}, winner = "") {
+    this.setState({ board, dragging, winner });
   }
   renderSquare(x, y, square) {
     return (
@@ -104,7 +94,12 @@ class Game extends React.Component {
   }
 
   render() {
-    return <div className="app-layout">{this.renderBoard()}</div>;
+    return (
+      <div className="app-layout">
+        {this.renderBoard()}
+        <Update winner={this.state.winner} />
+      </div>
+    );
   }
 }
 

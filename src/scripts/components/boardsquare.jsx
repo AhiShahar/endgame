@@ -18,17 +18,18 @@ const squareTarget = {
   }
 };
 
-function collect(connect, monitor) {
+export const collect = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
   };
-}
+};
 
 class BoardSquare extends React.Component {
   renderOverlay(color) {
     return (
       <div
+        className="square-overlay"
         style={{
           position: "absolute",
           top: 0,
@@ -49,6 +50,7 @@ class BoardSquare extends React.Component {
 
     return connectDropTarget(
       <div
+        className="square-container"
         style={{
           position: "relative",
           width: "100%",

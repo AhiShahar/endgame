@@ -5,10 +5,10 @@ node_modules/
 dist/
 
 # test reports
-webapp/static/coverage/*
+/coverage/*
 
 # logs
 npm-debug.log
 
 # npm files
-webapp/static/package-lock.json
+package-lock.json

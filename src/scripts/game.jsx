@@ -1,24 +1,21 @@
-const gameLogic = {
-  knight: (piece, board) => {
-    console.log("check knight movement");
-    return board;
-  },
-  bishop: (piece, board) => {
-    console.log("check bishop movement");
-    return board;
-  }
-};
+import { bishopMovement } from "./logics/bishop";
+import { knightMovement } from "./logics/knight";
+import { rookMovement } from "./logics/rook";
+import { kingMovement } from "./logics/king";
 
-const isPositionTaken = (piece, x, y, positions) => {
-  return positions.filter(
-    item => item.x === x && item.y === y && item.color === piece.color
-  ).length;
+const gameLogic = {
+  rook: (piece, board) => rookMovement(piece, board),
+  knight: (piece, board) => knightMovement(piece, board),
+  bishop: (piece, board) => bishopMovement(piece, board),
+  king: (piece, board) => kingMovement(piece, board)
 };
 
 export const movePiece = (piece, x, y, board, cb) => {
+  let winner = "";
   const updatedBoard = board.map(row => {
     return row.map(square => {
       if (square.x === x && square.y === y) {
+        if (square.type === "king") winner = piece.color;
         return {
           ...square,
           canDrop: false,
@@ -37,7 +34,7 @@ export const movePiece = (piece, x, y, board, cb) => {
       }
     });
   });
-  cb(updatedBoard);
+  cb(updatedBoard, {}, winner);
 };
 
 export const canMovePiece = (piece, board, cb) => {
