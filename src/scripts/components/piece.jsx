@@ -30,7 +30,7 @@ class Piece extends React.Component {
           fontWeight: "bold",
           cursor: "move"
         }}
-        src={`/assets/${this.props.piece.color}${this.props.piece.type}.png`}
+        src={`./assets/${this.props.piece.color}${this.props.piece.type}.png`}
         alt={`${this.props.piece.color}${this.props.piece.type}`}
       />
     );

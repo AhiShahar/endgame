@@ -9,7 +9,7 @@ module.exports = {
     extensions: [".webpack.js", ".web.js", ".js", ".json", ".jsx", ".scss"]
   },
   output: {
-    filename: `bundle.min.js?`,
+    filename: `bundle.js`,
     path: path.resolve(__dirname, "dist"),
     publicPath: "/dist/"
   },
