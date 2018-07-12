@@ -5,10 +5,16 @@ import { DragSource } from "react-dnd";
 
 const pieceSource = {
   beginDrag(props) {
-    props.onDragStart(props.piece);
-    return {
-      piece: props.piece
-    };
+    if (
+      (props.piece.color === "white" && props.turn === true) ||
+      (props.piece.color === "black" && props.turn === false)
+    ) {
+      props.onDragStart(props.piece);
+      return {
+        piece: props.piece
+      };
+    }
+    return {};
   }
 };
 

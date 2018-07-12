@@ -34,12 +34,15 @@ export const movePiece = (piece, x, y, board, cb) => {
       }
     });
   });
-  cb(updatedBoard, {}, winner);
+
+  const turn = true;
+  cb(updatedBoard, turn, {}, winner);
 };
 
 export const canMovePiece = (piece, board, cb) => {
   const updatedBoard = gameLogic[piece.type](piece, board);
-  cb(updatedBoard, piece);
+  const turn = false;
+  cb(updatedBoard, turn, piece);
 };
 
 export const resetBoard = (board, cb) => {

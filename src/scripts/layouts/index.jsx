@@ -23,6 +23,7 @@ class Game extends React.Component {
       return Board;
     };
     this.state = {
+      turn: false,
       winner: "",
       board: this.init(this.props.startingPositions),
       dragging: {},
@@ -42,8 +43,9 @@ class Game extends React.Component {
   onDragStart(dragging) {
     canMovePiece(dragging, this.state.board, this._updateBoard);
   }
-  updateBoard(board, dragging = {}, winner = "") {
-    this.setState({ board, dragging, winner });
+  updateBoard(board, turn = false, dragging = {}, winner = "") {
+    const isNextTurn = turn ? !this.state.turn : this.state.turn;
+    this.setState({ board, turn: isNextTurn, dragging, winner });
   }
   renderSquare(x, y, square) {
     return (
@@ -65,7 +67,11 @@ class Game extends React.Component {
 
   renderPiece(square) {
     return (
-      <Piece piece={square} onDragStart={() => this._onDragStart(square)} />
+      <Piece
+        piece={square}
+        turn={this.state.turn}
+        onDragStart={() => this._onDragStart(square)}
+      />
     );
   }
 

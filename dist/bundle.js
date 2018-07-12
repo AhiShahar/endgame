@@ -11191,12 +11191,15 @@ var movePiece = exports.movePiece = function movePiece(piece, x, y, board, cb) {
       }
     });
   });
-  cb(updatedBoard, {}, winner);
+
+  var turn = true;
+  cb(updatedBoard, turn, {}, winner);
 };
 
 var canMovePiece = exports.canMovePiece = function canMovePiece(piece, board, cb) {
   var updatedBoard = gameLogic[piece.type](piece, board);
-  cb(updatedBoard, piece);
+  var turn = false;
+  cb(updatedBoard, turn, piece);
 };
 
 var resetBoard = exports.resetBoard = function resetBoard(board, cb) {
@@ -17635,6 +17638,7 @@ var Game = function (_React$Component) {
       return _constants.Board;
     };
     _this.state = {
+      turn: false,
       winner: "",
       board: _this.init(_this.props.startingPositions),
       dragging: {},
@@ -17663,10 +17667,12 @@ var Game = function (_React$Component) {
   }, {
     key: "updateBoard",
     value: function updateBoard(board) {
-      var dragging = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var winner = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+      var turn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var dragging = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var winner = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
 
-      this.setState({ board: board, dragging: dragging, winner: winner });
+      var isNextTurn = turn ? !this.state.turn : this.state.turn;
+      this.setState({ board: board, turn: isNextTurn, dragging: dragging, winner: winner });
     }
   }, {
     key: "renderSquare",
@@ -17694,9 +17700,13 @@ var Game = function (_React$Component) {
     value: function renderPiece(square) {
       var _this2 = this;
 
-      return _react2.default.createElement(_piece2.default, { piece: square, onDragStart: function onDragStart() {
+      return _react2.default.createElement(_piece2.default, {
+        piece: square,
+        turn: this.state.turn,
+        onDragStart: function onDragStart() {
           return _this2._onDragStart(square);
-        } });
+        }
+      });
     }
   }, {
     key: "renderBoard",
@@ -18410,10 +18420,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var pieceSource = {
   beginDrag: function beginDrag(props) {
-    props.onDragStart(props.piece);
-    return {
-      piece: props.piece
-    };
+    if (props.piece.color === "white" && props.turn === true || props.piece.color === "black" && props.turn === false) {
+      props.onDragStart(props.piece);
+      return {
+        piece: props.piece
+      };
+    }
+    return {};
   }
 };
 
