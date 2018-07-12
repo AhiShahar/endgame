@@ -1,0 +1,78 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Lato", "open-sans";
+  color: #333; }
+
+html {
+  scrollbar-face-color: #cacaca;
+  scrollbar-track-color: #fafafa; }
+  html ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px; }
+  html ::-webkit-scrollbar-thumb {
+    background: #cacaca;
+    background-clip: padding-box;
+    -webkit-border-radius: 7px;
+    border: 1px solid rgba(0, 0, 0, 0); }
+  html ::-webkit-scrollbar-track {
+    background: #fafafa; }
+
+p {
+  margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #333;
+  margin: 0; }
+.app-layout {
+  background-color: ghostwhite;
+  height: 100vh;
+  width: 100vw; }
+.update {
+  background-color: #444;
+  opacity: 0.8;
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  display: inline-block;
+  position: fixed;
+  left: 40vw;
+  left: -webkit-calc(50vw - 150px);
+  left: -moz-calc(50vw - 150px);
+  left: -o-calc(50vw - 150px);
+  top: 45vh;
+  top: -webkit-calc(50vh - 25px);
+  top: -moz-calc(50vh - 25px);
+  top: -o-calc(50vh - 25px); }
+  .update .update-context {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 40px;
+    font-family: lato, sans-serif;
+    color: ghostwhite; }
+  .update .display-game {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    top: 0;
+    left: 0; }
+
+/*# sourceMappingURL=styles.css.map*/
